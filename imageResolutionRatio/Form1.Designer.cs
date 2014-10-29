@@ -162,7 +162,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 109);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 13);
+            this.label5.Size = new System.Drawing.Size(89, 13);
             this.label5.TabIndex = 11;
             this.label5.Text = "Image Resolution";
             // 
@@ -181,6 +181,7 @@
             this.lblNewImageResolution.Size = new System.Drawing.Size(100, 13);
             this.lblNewImageResolution.TabIndex = 14;
             this.lblNewImageResolution.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNewImageResolution.Click += new System.EventHandler(this.lblSideLength_Click);
             // 
             // label7
             // 
@@ -193,6 +194,7 @@
             // 
             // Form1
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(253, 191);
@@ -216,6 +218,8 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Image Ratio";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.ResumeLayout(false);
             this.PerformLayout();
 

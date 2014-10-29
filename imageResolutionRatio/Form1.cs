@@ -12,9 +12,13 @@ using System.Windows.Forms;
 namespace imageResolutionRatio {
     public partial class Form1 : Form {
         Bitmap bitmap;
+        bool copyWidth;
+        int numToCopy;
         public Form1 () {
             InitializeComponent();
             bitmap = null;
+            copyWidth = false;
+            numToCopy = 0;
             Icon = global::imageResolutionRatio.Properties.Resources.imageRatioIcon;
         }
 
@@ -37,19 +41,14 @@ namespace imageResolutionRatio {
         }
 
         private void calculate () {
-            if ( txtHeight.Text == string.Empty && txtWidth.Text == string.Empty ) {
-                //MessageBox.Show( "Please input a height or width", "Empty Text Box" );
-                return;
-
-            }
-
             if ( txtRatioHeight.Text == string.Empty || txtRatioWidth.Text == string.Empty ) {
                 return;
 
             }
 
-            if ( txtHeight.Text != string.Empty && txtWidth.Text != string.Empty ) {
-                //MessageBox.Show( "Please input only one of them", "Too Many" );
+            if ( txtHeight.Text == string.Empty && txtWidth.Text == string.Empty ) {
+                lblSide.Text = string.Empty;
+                lblSideLength.Text = string.Empty;
                 return;
 
             }
@@ -58,28 +57,60 @@ namespace imageResolutionRatio {
             int width = 0;
             int ratioWidth = 0;
             int ratioHeight = 0;
+            float imageRatio = 0;
             float ratio = 0;
 
-            if ( txtHeight.Text != string.Empty ) {
-                height = int.Parse( txtHeight.Text );
-                ratioWidth = int.Parse( txtRatioWidth.Text );
-                ratioHeight = int.Parse( txtRatioHeight.Text );
-                ratio = ( float ) ratioWidth / ( float ) ratioHeight;
+            ratioWidth = int.Parse( txtRatioWidth.Text );
+            ratioHeight = int.Parse( txtRatioHeight.Text );
 
+            if ( txtHeight.Text != string.Empty && txtWidth.Text != string.Empty ) {
+                height = int.Parse( txtHeight.Text );
+                width = int.Parse( txtWidth.Text );
+                imageRatio = ( float ) width / ( float ) height;
+
+                if ( imageRatio < ratio ) {
+                    ratio = ( float ) ratioWidth / ( float ) ratioHeight;
+                    width = ( int ) ( height * ratio );
+                    numToCopy = width;
+                    copyWidth = true;
+
+                } else {
+                    ratio = ( float ) ratioHeight / ( float ) ratioWidth;
+                    height = ( int ) ( width * ratio );
+                    numToCopy = height;
+                    copyWidth = false;
+
+                }
+
+                lblSide.Text = "Width x Height";
+                lblSideLength.Text = width + " x " + height;
+
+            } else if ( txtHeight.Text != string.Empty ) {
+                height = int.Parse( txtHeight.Text );
+                ratio = ( float ) ratioWidth / ( float ) ratioHeight;
                 width = ( int ) ( height * ratio );
                 lblSide.Text = "Width";
                 lblSideLength.Text = width.ToString();
-            }
+                numToCopy = width;
+                copyWidth = true;
 
-            if ( txtWidth.Text != string.Empty ) {
+            } else if ( txtWidth.Text != string.Empty ) {
                 width = int.Parse( txtWidth.Text );
-                ratioWidth = int.Parse( txtRatioWidth.Text );
-                ratioHeight = int.Parse( txtRatioHeight.Text );
                 ratio = ( float ) ratioHeight / ( float ) ratioWidth;
-
                 height = ( int ) ( width * ratio );
                 lblSide.Text = "Height";
                 lblSideLength.Text = height.ToString();
+                numToCopy = height;
+                copyWidth = false;
+
+            }
+
+            if ( copyWidth == true ) {
+                toolTip1.SetToolTip( lblSideLength, "Click to copy new width to clipboard" );
+
+            } else {
+                toolTip1.SetToolTip( lblSideLength, "Click to copy new height to clipboard" );
+
             }
 
         }
@@ -89,28 +120,40 @@ namespace imageResolutionRatio {
             int width = 0;
             int ratioWidth = 0;
             int ratioHeight = 0;
+            float imageRatio = 0;
             float ratio = 0;
 
             if ( bitmap != null ) {
-                if ( bitmap.Height < bitmap.Width ) {
-                    ratioWidth = int.Parse( txtRatioWidth.Text );
-                    ratioHeight = int.Parse( txtRatioHeight.Text );
-                    ratio = ( float ) ratioWidth / ( float ) ratioHeight;
+                ratioWidth = int.Parse( txtRatioWidth.Text );
+                ratioHeight = int.Parse( txtRatioHeight.Text );
+                ratio = ( float ) ratioWidth / ( float ) ratioHeight;
+                imageRatio = ( float ) bitmap.Width / ( float ) bitmap.Height;
 
+                if ( imageRatio < ratio ) {
                     width = ( int ) ( bitmap.Height * ratio );
                     lblNewImageResolution.Text = width + " x " + bitmap.Height;
+                    numToCopy = width;
+                    copyWidth = true;
 
                 } else {
-                    ratioWidth = int.Parse( txtRatioWidth.Text );
-                    ratioHeight = int.Parse( txtRatioHeight.Text );
                     ratio = ( float ) ratioHeight / ( float ) ratioWidth;
-
                     height = ( int ) ( bitmap.Width * ratio );
-                    lblSide.Text = "Height";
                     lblNewImageResolution.Text = bitmap.Width + " x " + height;
+                    numToCopy = height;
+                    copyWidth = false;
 
                 }
+
             }
+
+            if ( copyWidth == true ) {
+                toolTip1.SetToolTip( lblNewImageResolution, "Click to copy new width to clipboard" );
+
+            } else {
+                toolTip1.SetToolTip( lblNewImageResolution, "Click to copy new height to clipboard" );
+
+            }
+
         }
 
         private void txt_KeyPress ( object sender, KeyPressEventArgs e ) {
@@ -130,10 +173,11 @@ namespace imageResolutionRatio {
         }
 
         private void lblSideLength_Click ( object sender, EventArgs e ) {
-            Clipboard.SetText( lblSideLength.Text );
+            Clipboard.SetText( numToCopy.ToString() );
+
         }
 
-        public string GetImageFilter () {
+        private string GetImageFilter () {
             StringBuilder allImageExtensions = new StringBuilder();
             string separator = "";
             ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
@@ -161,6 +205,32 @@ namespace imageResolutionRatio {
             calculateImageStuff();
 
         }
+
+        private void Form1_DragEnter ( object sender, DragEventArgs e ) {
+            if ( e.Data.GetDataPresent( DataFormats.FileDrop ) )
+                e.Effect = DragDropEffects.All;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void Form1_DragDrop ( object sender, DragEventArgs e ) {
+            string[] s = ( string[] ) e.Data.GetData( DataFormats.FileDrop, false );
+
+            try {
+                bitmap = new Bitmap( s.First() );
+                lblImageResolution.Text = bitmap.Width + " x " + bitmap.Height;
+
+                calculateImageStuff();
+            } catch {
+                MessageBox.Show( "Not supported image format", "Error" );
+
+            }
+            
+
+
+        }
+
+        
 
 
     }
