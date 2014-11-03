@@ -478,6 +478,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(605, 409);
             this.Name = "Form1";
             this.Text = "Image Ratio";
             this.Load += new System.EventHandler(this.Form1_Load);
