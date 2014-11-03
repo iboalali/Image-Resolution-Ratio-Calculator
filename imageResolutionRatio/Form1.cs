@@ -60,7 +60,9 @@ namespace imageResolutionRatio {
             ofd.Filter = GetImageFilter();
 
             if ( ofd.ShowDialog() == DialogResult.OK ) {
-                newBitmap.Dispose();
+                if ( newBitmap != null ) {
+                    newBitmap.Dispose();
+                }
 
                 originalImage = new Bitmap( ofd.FileName );
                 bitmap = ( Bitmap ) originalImage.Clone();
@@ -200,6 +202,12 @@ namespace imageResolutionRatio {
             save();
         }
 
+        private void aboutToolStripMenuItem_Click ( object sender, EventArgs e ) {
+            new AboutForm().Show();
+        }
+
+
+
         #endregion
 
         /// <summary>
@@ -286,7 +294,13 @@ namespace imageResolutionRatio {
         private void calculateImageStuff () {
             toolStripStatusLabel.Text = "Processing...";
 
+            if ( bitmap == null ) {
+                toolStripStatusLabel.Text = "Ready";
+                return;
+            }
+
             if ( txtImageRatioWidth.Text == string.Empty || txtImageRatioHeight.Text == string.Empty ) {
+                toolStripStatusLabel.Text = "Ready";
                 return;
             }
 
@@ -488,6 +502,8 @@ namespace imageResolutionRatio {
 
 
         }
+
+        
 
 
     }

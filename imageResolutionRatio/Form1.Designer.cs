@@ -73,20 +73,22 @@
             // 
             // btnExit
             // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.Location = new System.Drawing.Point(502, 317);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
-            this.btnExit.TabIndex = 5;
+            this.btnExit.TabIndex = 11;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnOpenImage
             // 
+            this.btnOpenImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenImage.Location = new System.Drawing.Point(421, 317);
             this.btnOpenImage.Name = "btnOpenImage";
             this.btnOpenImage.Size = new System.Drawing.Size(75, 23);
-            this.btnOpenImage.TabIndex = 4;
+            this.btnOpenImage.TabIndex = 10;
             this.btnOpenImage.Text = "Open Image";
             this.btnOpenImage.UseVisualStyleBackColor = true;
             this.btnOpenImage.Click += new System.EventHandler(this.btnOpenImage_Click);
@@ -221,6 +223,9 @@
             // 
             // pbPreview
             // 
+            this.pbPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbPreview.Location = new System.Drawing.Point(297, 31);
             this.pbPreview.Name = "pbPreview";
@@ -261,7 +266,7 @@
             this.txtImageRatioHeight.MaxLength = 2;
             this.txtImageRatioHeight.Name = "txtImageRatioHeight";
             this.txtImageRatioHeight.Size = new System.Drawing.Size(41, 20);
-            this.txtImageRatioHeight.TabIndex = 18;
+            this.txtImageRatioHeight.TabIndex = 5;
             this.txtImageRatioHeight.Text = "9";
             this.txtImageRatioHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtImageRatioHeight.TextChanged += new System.EventHandler(this.txtRatio_TextChanged);
@@ -282,7 +287,7 @@
             this.txtImageRatioWidth.MaxLength = 2;
             this.txtImageRatioWidth.Name = "txtImageRatioWidth";
             this.txtImageRatioWidth.Size = new System.Drawing.Size(41, 20);
-            this.txtImageRatioWidth.TabIndex = 17;
+            this.txtImageRatioWidth.TabIndex = 4;
             this.txtImageRatioWidth.Text = "16";
             this.txtImageRatioWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtImageRatioWidth.TextChanged += new System.EventHandler(this.txtRatio_TextChanged);
@@ -300,7 +305,7 @@
             this.rbAutomatic.Location = new System.Drawing.Point(6, 21);
             this.rbAutomatic.Name = "rbAutomatic";
             this.rbAutomatic.Size = new System.Drawing.Size(72, 17);
-            this.rbAutomatic.TabIndex = 21;
+            this.rbAutomatic.TabIndex = 6;
             this.rbAutomatic.TabStop = true;
             this.rbAutomatic.Text = "Automatic";
             this.rbAutomatic.UseVisualStyleBackColor = true;
@@ -312,7 +317,7 @@
             this.rbManual.Location = new System.Drawing.Point(6, 67);
             this.rbManual.Name = "rbManual";
             this.rbManual.Size = new System.Drawing.Size(60, 17);
-            this.rbManual.TabIndex = 22;
+            this.rbManual.TabIndex = 8;
             this.rbManual.Text = "Manual";
             this.rbManual.UseVisualStyleBackColor = true;
             this.rbManual.CheckedChanged += new System.EventHandler(this.rbManual_CheckedChanged);
@@ -323,7 +328,7 @@
             this.btnPickColor.Location = new System.Drawing.Point(145, 61);
             this.btnPickColor.Name = "btnPickColor";
             this.btnPickColor.Size = new System.Drawing.Size(75, 23);
-            this.btnPickColor.TabIndex = 23;
+            this.btnPickColor.TabIndex = 9;
             this.btnPickColor.Text = "Pick Color";
             this.btnPickColor.UseVisualStyleBackColor = true;
             this.btnPickColor.Click += new System.EventHandler(this.btnPickColor_Click);
@@ -356,13 +361,14 @@
             this.rbFromImage.Location = new System.Drawing.Point(6, 44);
             this.rbFromImage.Name = "rbFromImage";
             this.rbFromImage.Size = new System.Drawing.Size(80, 17);
-            this.rbFromImage.TabIndex = 24;
+            this.rbFromImage.TabIndex = 7;
             this.rbFromImage.Text = "From Image";
             this.rbFromImage.UseVisualStyleBackColor = true;
             this.rbFromImage.CheckedChanged += new System.EventHandler(this.rbFromImage_CheckedChanged);
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.helpToolStripMenuItem});
@@ -427,11 +433,13 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 348);
@@ -451,6 +459,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(589, 370);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
@@ -467,7 +476,6 @@
             this.Controls.Add(this.btnOpenImage);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Form1";
