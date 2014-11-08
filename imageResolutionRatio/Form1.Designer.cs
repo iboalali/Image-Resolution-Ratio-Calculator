@@ -253,7 +253,7 @@
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(36, 169);
+            this.label6.Location = new System.Drawing.Point(36, 172);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(32, 20);
             this.label6.TabIndex = 19;
