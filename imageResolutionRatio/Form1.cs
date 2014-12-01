@@ -43,12 +43,21 @@ namespace imageResolutionRatio {
             color = Color.White;
             Icon = global::imageResolutionRatio.Properties.Resources.imageRatioIcon;
 
+            // idea: get the screen resolution from the display and put the 
+            // value the ratio text boxes
+
+
         }
 
         #region Even Handlers
 
         private void Form1_Load ( object sender, EventArgs e ) {
             colorDialog1.Color = Color.White;
+            Rectangle screen_rec = Screen.PrimaryScreen.Bounds;
+            int gcd = getGCD( screen_rec.Width, screen_rec.Height );
+            txtRatioWidth.Text = txtImageRatioWidth.Text = ( screen_rec.Width / gcd ).ToString();
+            txtRatioHeight.Text = txtImageRatioHeight.Text = ( screen_rec.Height / gcd ).ToString();
+
         }
 
         private void btnExit_Click ( object sender, EventArgs e ) {
@@ -503,7 +512,16 @@ namespace imageResolutionRatio {
 
         }
 
-        
+        /// <summary>
+        /// Get the Greatest Common Devisor (GCD) for two numbers
+        /// </summary>
+        /// <param name="a">First Number</param>
+        /// <param name="b">Second Number</param>
+        /// <returns>Returns the GCD</returns>
+        private int getGCD ( int a, int b ) {
+            return ( b == 0 ) ? a : getGCD( b, a % b );
+
+        }
 
 
     }
